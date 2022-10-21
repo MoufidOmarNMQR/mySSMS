@@ -17,8 +17,9 @@ namespace mySSMS
     {
         // Globals
         private static SerialPort srl1;
-        private static string[] s;
+        private static string[] s = new string[9];
         private static string Ricevuta;
+        private static char separatore = ' ';
         public frmMain()
         {
             InitializeComponent();
@@ -56,7 +57,19 @@ namespace mySSMS
         {
             Ricevuta = srl1.ReadLine();
             // Riempi listview
-            
+            s = Ricevuta.Split(separatore);
+            for (int i = 0; i < s.Length; i += 3)
+            {
+                ListViewItem lsitem = new ListViewItem(
+                new string[]
+                {
+                    s[i],
+                    s[i + 1],
+                    s[i + 2]
+                }
+                );
+                listView1.Items.Add(lsitem);
+            }
         }
         private void btnApriChiudi_Click(object sender, EventArgs e)
         {
